@@ -44,7 +44,7 @@ public class ServerThread implements Runnable {
 		
 	}
 	
-	public void updateDB(String line)
+	public synchronized void updateDB(String line)
 	{
 		Gson gson = new Gson();
 		IOTThing parsedThing = gson.fromJson(line, IOTThing.class);

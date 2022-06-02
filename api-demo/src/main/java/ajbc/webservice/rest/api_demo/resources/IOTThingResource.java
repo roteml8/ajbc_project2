@@ -5,6 +5,7 @@ import java.util.UUID;
 
 import ajbc.webservice.rest.api_demo.DBService.DBService;
 import ajbc.webservice.rest.api_demo.beans.HardwareFilterBean;
+import ajbc.webservice.rest.api_demo.exception.MissingDataException;
 import ajbc.webservice.rest.api_demo.models.IOTThing;
 import jakarta.ws.rs.BeanParam;
 import jakarta.ws.rs.Consumes;
@@ -21,9 +22,10 @@ public class IOTThingResource {
 	
 	private DBService dbService = new DBService();
 	
+	
 	@GET
-	@Path("/{id}")
-	public IOTThing getThingById(@PathParam("id") UUID id) {
+	@Path("/{uuid}")
+	public IOTThing getThingById(@PathParam("uuid") UUID id) {
 		return dbService.getThingByID(id);
 	}
 	

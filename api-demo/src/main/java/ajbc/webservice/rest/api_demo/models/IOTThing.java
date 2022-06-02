@@ -21,18 +21,19 @@ public class IOTThing extends Hardware {
 	
 	public void simulateInventoryChange()
 	{
-		if (!devices.isEmpty())
+		if (!devices.isEmpty()) // remove random device
 		{
 			int numDevices = devices.size();
 			int randomIndex = (int) (Math.random()*numDevices);	
 			devices.remove(randomIndex);
 		}
-		int randomNumber = (int) (Math.random()*15 + 1);
-		String randomModel = "Model"+randomNumber;
-		String randomManu = "Manufacturer"+randomNumber;
+		// add random device
+		int randomNumber = (int) (Math.random()*25 + 10);
+		String randomModel = "randModel"+randomNumber;
+		String randomManu = "randManufacturer"+randomNumber;
 		Type randomType = Type.values()[randomNumber%Type.values().length];
 		devices.add(new Device(randomModel, randomManu, randomType));
-		devices.forEach(d->d.simulateReading());
+		devices.forEach(d->d.simulateReading()); // simulate reading of each device
 	
 	}
 

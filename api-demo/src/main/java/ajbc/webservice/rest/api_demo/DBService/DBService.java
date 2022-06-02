@@ -37,7 +37,7 @@ public class DBService {
 	{
 		IOTThing current = things.get(id);
 		if (current == null)
-			throw new MissingDataException("No IOTThing with the given ID.");
+			throw new MissingDataException("No IOTThing with the given ID: "+id);
 		return current;
 	}
 	
@@ -100,12 +100,16 @@ public class DBService {
 		return current;
 	}
 	
+	// after updating iotthing and its devices we need to update the overall devices map
 	public void updateDevices(IOTThing updated, List<Device> oldDevices)
 	{
 		List<Device> newDevices = updated.getDevices();
 		for (Device d: oldDevices)
 			if (!newDevices.contains(d))
 				devices.remove(d.getID());
+		for (Device d: newDevices)
+			if (!devices.containsKey(d.getID()))
+				devices.put(d.getID(), d);
 	}
 	
 	public boolean isDeviceConnectedToThing(Device device)

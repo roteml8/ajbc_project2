@@ -1,4 +1,4 @@
-package ajbc.webservice.rest.api_demo.exception;
+package ajbc.webservice.rest.api_demo.models;
 
 public class ErrorMessage {
 	
