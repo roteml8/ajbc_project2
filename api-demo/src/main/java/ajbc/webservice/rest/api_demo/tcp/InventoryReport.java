@@ -22,6 +22,7 @@ public class InventoryReport {
 	private IOTThing iotThing;
 	private final static String SERVER_NAME = "localhost";
 	private final static int SERVER_PORT = 9090;
+	private final static int DELAY = 10000;
 	
 	
 	public InventoryReport(IOTThing iotThing) {
@@ -92,7 +93,7 @@ public class InventoryReport {
 			thing.simulateInventoryChange();
 			report.transmitReportsPeriodically();
 			try {
-				Thread.sleep(10000);
+				Thread.sleep(DELAY);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}

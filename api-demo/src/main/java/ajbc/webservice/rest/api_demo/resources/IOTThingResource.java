@@ -2,10 +2,9 @@ package ajbc.webservice.rest.api_demo.resources;
 
 import java.util.List;
 import java.util.UUID;
-
+import jakarta.ws.rs.core.Response;
 import ajbc.webservice.rest.api_demo.DBService.DBService;
 import ajbc.webservice.rest.api_demo.beans.HardwareFilterBean;
-import ajbc.webservice.rest.api_demo.exception.MissingDataException;
 import ajbc.webservice.rest.api_demo.models.IOTThing;
 import jakarta.ws.rs.BeanParam;
 import jakarta.ws.rs.Consumes;
@@ -24,21 +23,26 @@ public class IOTThingResource {
 	
 	
 	@GET
-	@Path("/{uuid}")
-	public IOTThing getThingById(@PathParam("uuid") UUID id) {
-		return dbService.getThingByID(id);
+	@Path("/{id}")
+	public Response getThingById(@PathParam("id") String id) {
+		UUID parsed = UUID.fromString(id);
+		return Response.ok().entity(dbService.getThingByID(parsed)).build();
 	}
 	
+	
 	@GET
-	public List<IOTThing> getThingsByProperty(@BeanParam HardwareFilterBean thingFilter)
+	public Response getThingsByProperty(@BeanParam HardwareFilterBean thingFilter)
 	{
+		List<IOTThing> things;
 		if (thingFilter.getManufacturer() != null)
-			return dbService.getThingsByManufacturer(thingFilter.getManufacturer());
-		if (thingFilter.getModel() != null)
-			return dbService.getThingsByModel(thingFilter.getModel());
-		if (thingFilter.getType() != null)
-			return dbService.getThingsByType(thingFilter.getType());
-		return dbService.getAllThings();
+			things = dbService.getThingsByManufacturer(thingFilter.getManufacturer());
+		else if (thingFilter.getModel() != null)
+			things = dbService.getThingsByModel(thingFilter.getModel());
+		else if (thingFilter.getType() != null)
+			things = dbService.getThingsByType(thingFilter.getType());
+		else
+			things = dbService.getAllThings();
+		return Response.ok().entity(things).build();
 	}
 
 

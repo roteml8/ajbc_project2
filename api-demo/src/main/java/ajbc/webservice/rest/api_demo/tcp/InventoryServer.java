@@ -15,7 +15,8 @@ public class InventoryServer extends Thread {
 
 	private ServerSocket serverSocket;
 	private final int PORT = 9090;
-	private ExecutorService executorService = Executors.newFixedThreadPool(3);
+	private final int NUM_THREADS = 3;
+	private ExecutorService executorService = Executors.newFixedThreadPool(NUM_THREADS);
 	
 	@Override
 	public void run() {

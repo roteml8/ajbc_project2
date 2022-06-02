@@ -21,8 +21,9 @@ public class DeviceThingResource {
 	private DBService dbService = new DBService();
 	
 	@GET
-	public Response getDevicesByThingId(@PathParam("id") UUID id) {
-		List<Device> devices = dbService.getDevicesByThingId(id);
+	public Response getDevicesByThingId(@PathParam("id") String id) {
+		UUID parsed = UUID.fromString(id);
+		List<Device> devices = dbService.getDevicesByThingId(parsed);
 		return Response.ok().entity(devices).build();
 	}
 

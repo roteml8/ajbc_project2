@@ -5,6 +5,10 @@ import java.util.List;
 public class IOTThing extends Hardware {
 
 	private List<Device> devices;
+	private final int MIN_RANGE = 10;
+	private final int MAX_RANGE = 25;
+	private final String DEFAULT_MODEL = "DefModel";
+	private final String DEFAULT_MANUFACTURER = "DefManufacturer";
 	
 	public IOTThing(String model, String manufacturer, Type type) {
 		super(model, manufacturer, type);
@@ -27,12 +31,17 @@ public class IOTThing extends Hardware {
 			int randomIndex = (int) (Math.random()*numDevices);	
 			devices.remove(randomIndex);
 		}
+		
 		// add random device
-		int randomNumber = (int) (Math.random()*25 + 10);
-		String randomModel = "randModel"+randomNumber;
-		String randomManu = "randManufacturer"+randomNumber;
-		Type randomType = Type.values()[randomNumber%Type.values().length];
+		int randomNumber = (int) (Math.random()*MAX_RANGE + MIN_RANGE);
+		
+		String randomModel = DEFAULT_MODEL+randomNumber;
+		String randomManu = DEFAULT_MANUFACTURER+randomNumber;
+		int numTypes = Type.values().length;
+		Type randomType = Type.values()[randomNumber%numTypes];
+		
 		devices.add(new Device(randomModel, randomManu, randomType));
+		
 		devices.forEach(d->d.simulateReading()); // simulate reading of each device
 	
 	}

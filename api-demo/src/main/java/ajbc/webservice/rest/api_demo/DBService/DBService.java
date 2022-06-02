@@ -68,6 +68,7 @@ public class DBService {
 	
 	public List<IOTThing> getThingsByType(Type type)
 	{
+		
 		return things.values().stream().filter(t->t.getType().equals(type)).toList();
 	}
 	
@@ -140,6 +141,8 @@ public class DBService {
 	
 	public List<Device> getDevicesByThingId(UUID thingId)
 	{
+		if (!things.containsKey(thingId))
+			throw new MissingDataException("No Thing with the given id "+thingId);
 		return things.get(thingId).getDevices();
 	}
 	
