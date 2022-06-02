@@ -112,13 +112,6 @@ public class DBService {
 				devices.put(d.getID(), d);
 	}
 	
-	public boolean isDeviceConnectedToThing(Device device)
-	{
-		for (IOTThing thing: things.values())
-			if (thing.getDevices().contains(device))
-				return true;
-		return false;
-	}
 	
 	public List<Device> getDevicesByType(Type type)
 	{
