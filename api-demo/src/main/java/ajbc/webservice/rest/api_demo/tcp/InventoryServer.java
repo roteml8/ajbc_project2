@@ -5,14 +5,10 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 public class InventoryServer extends Thread {
 	
-	//TODO use scheduled thread pool
-	// each client is one iotthing . each client simulates inventory change - num of devices
-	// tomcat server: main thread 
-	// we need another thread to run the tcp server 
-
 	private ServerSocket serverSocket;
 	private final int PORT = 9090;
 	private final int NUM_THREADS = 3;
@@ -36,6 +32,16 @@ public class InventoryServer extends Thread {
 			}
 		} catch (IOException e) {
 			System.err.println("Failed to start server on port " + PORT);
+			e.printStackTrace();
+		}
+	}
+	
+	public void kill() {
+
+		try {
+			executorService.shutdown();
+			executorService.awaitTermination(2, TimeUnit.SECONDS);
+		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
 	}

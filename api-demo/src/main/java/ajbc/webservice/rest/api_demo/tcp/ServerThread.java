@@ -16,6 +16,7 @@ public class ServerThread implements Runnable {
 
 	private Socket clientSocket;
 	private DBService dbService;
+	private boolean stopped;
 	
 	public ServerThread(Socket clientSocket)
 	{
@@ -44,7 +45,7 @@ public class ServerThread implements Runnable {
 		
 	}
 	
-	public synchronized void updateDB(String line)
+	public void updateDB(String line)
 	{
 		Gson gson = new Gson();
 		IOTThing parsedThing = gson.fromJson(line, IOTThing.class);
@@ -54,6 +55,10 @@ public class ServerThread implements Runnable {
 		dbService.getAllThings().forEach(t->System.out.println(t+"\n-------------------------"));
 		System.out.println();
 		dbService.getAllDevices().forEach(t->System.out.println(t+"\n-------------------------"));
+	}
+	
+	public void kill() {
+		stopped = true;
 	}
 
 }

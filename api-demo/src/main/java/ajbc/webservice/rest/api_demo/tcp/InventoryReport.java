@@ -11,7 +11,6 @@ import java.util.List;
 
 import com.google.gson.Gson;
 
-import ajbc.webservice.rest.api_demo.DBService.DBService;
 import ajbc.webservice.rest.api_demo.models.Device;
 import ajbc.webservice.rest.api_demo.models.IOTThing;
 import ajbc.webservice.rest.api_demo.models.Type;
