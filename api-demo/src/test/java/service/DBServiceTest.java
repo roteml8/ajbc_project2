@@ -253,4 +253,6 @@ class DBServiceTest {
 		
 		assertThrows(IllegalArgumentException.class, ()->service.getThingsByType(Type.valueOf("invalid type")));
 	}
+	
+
 }
